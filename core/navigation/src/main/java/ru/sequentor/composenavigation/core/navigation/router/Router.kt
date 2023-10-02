@@ -1,15 +1,15 @@
 package ru.sequentor.composenavigation.core.navigation.router
 
-import android.os.Bundle
 import kotlinx.coroutines.flow.Flow
+import ru.sequentor.composenavigation.core.navigation.destination.Destination
 
 interface Router {
     val commandsFlow: Flow<RouterCommand>
 
-    fun navigate(route: String, bundle: Bundle? = null)
+    fun navigate(destination: Destination)
     fun back()
     fun backTo(route: String)
     fun replace(route: String)
-    fun popUpTo(route: String)
+    fun popUpTo(destination: Destination)
 }
 

@@ -1,12 +1,14 @@
 package ru.sequentor.composenavigation.feature.feature_one.ui.feature_screen_one.navigation
 
 import androidx.compose.runtime.Composable
+import kotlinx.parcelize.IgnoredOnParcel
+import kotlinx.parcelize.Parcelize
 import ru.sequentor.composenavigation.core.navigation.destination.Destination
 import ru.sequentor.composenavigation.feature.feature_one.ui.feature_screen_one.FeatureOneFirstRoute
 
-object FeatureOneFirstDestination : Destination() {
+@Parcelize
+class FeatureOneFirstDestination : Destination() {
 
-    override val route: String = "feature_one_route"
-
+    @IgnoredOnParcel
     override val screenContent: @Composable () -> Unit = { FeatureOneFirstRoute() }
 }

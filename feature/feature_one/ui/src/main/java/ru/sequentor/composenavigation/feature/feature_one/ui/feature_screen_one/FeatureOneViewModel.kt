@@ -23,9 +23,6 @@ internal class FeatureOneViewModel @Inject constructor(
     }
 
     fun onNavigateSecondScreen() {
-        router.navigate(
-            FeatureOneSecondDestination.route,
-            FeatureOneSecondDestination.bundle(featureOneViewState.value.count, Result.success("Success"))
-        )
+        router.navigate(FeatureOneSecondDestination(featureOneViewState.value.count, Result.success("Success")))
     }
 }

@@ -15,20 +15,20 @@ internal data class StartViewState(
 
 private fun buildNavigationItems(): List<NavigationItem> = listOf(
     NavigationItem(
-        route = FeatureOneFirstDestination.route,
+        route = FeatureOneFirstDestination::class.toString(),
         iconRes = R.drawable.ic_icon_1,
         initialRoute = true,
     ),
     NavigationItem(
-        route = FeatureTwoDestination.route,
+        route = FeatureTwoDestination::class.toString(),
         iconRes = R.drawable.ic_icon_2,
     ),
     NavigationItem(
-        route = FeatureThreeDestination.route,
+        route = FeatureThreeDestination::class.toString(),
         iconRes = R.drawable.ic_icon_3,
     ),
     NavigationItem(
-        route = FeatureFourDestination.route,
+        route = FeatureFourDestination::class.toString(),
         iconRes = R.drawable.ic_icon_4,
     ),
 )

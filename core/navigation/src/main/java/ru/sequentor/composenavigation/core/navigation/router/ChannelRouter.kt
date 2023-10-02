@@ -1,9 +1,9 @@
 package ru.sequentor.composenavigation.core.navigation.router
 
-import android.os.Bundle
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
+import ru.sequentor.composenavigation.core.navigation.destination.Destination
 
 internal class ChannelRouter(
     commandsBufferSize: Int = DEFAULT_COMMANDS_BUFFER_SIZE,
@@ -14,8 +14,8 @@ internal class ChannelRouter(
     override val commandsFlow: Flow<RouterCommand>
         get() = commandsChannel.receiveAsFlow()
 
-    override fun navigate(route: String, bundle: Bundle?) {
-        commandsChannel.trySend(RouterCommand.Navigate(route, bundle))
+    override fun navigate(destination: Destination) {
+        commandsChannel.trySend(RouterCommand.Navigate(destination))
     }
 
     override fun back() {
@@ -30,8 +30,8 @@ internal class ChannelRouter(
         commandsChannel.trySend(RouterCommand.Replace(route))
     }
 
-    override fun popUpTo(route: String) {
-        commandsChannel.trySend(RouterCommand.PopUpTo(route))
+    override fun popUpTo(destination: Destination) {
+        commandsChannel.trySend(RouterCommand.PopUpTo(destination))
     }
 
     companion object {

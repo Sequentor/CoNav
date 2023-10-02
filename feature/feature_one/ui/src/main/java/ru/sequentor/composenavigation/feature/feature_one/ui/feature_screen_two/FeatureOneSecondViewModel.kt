@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import ru.sequentor.composenavigation.core.navigation.destination.requiredArgs
 import ru.sequentor.composenavigation.core.navigation.router.Router
 import ru.sequentor.composenavigation.feature.feature_one.ui.feature_screen_two.navigation.FeatureOneSecondDestination
 import ru.sequentor.composenavigation.feature.feature_one.ui.feature_screen_two.state.FeatureOneSecondViewState
@@ -17,7 +18,7 @@ internal class FeatureOneSecondViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
-    private val args = FeatureOneSecondDestination.InternalArgs(savedStateHandle)
+    private val args: FeatureOneSecondDestination = savedStateHandle.requiredArgs()
 
     private val _featureOneSecondViewState = MutableStateFlow(FeatureOneSecondViewState())
     val featureOneSecondViewState: StateFlow<FeatureOneSecondViewState> = _featureOneSecondViewState
