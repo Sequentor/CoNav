@@ -7,9 +7,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.flow.Flow
-import ru.sequentor.conav.destination.Screen
+import ru.sequentor.conav.destination.Destination
 import ru.sequentor.conav.destination.route
-import ru.sequentor.conav.ext.addStartScreen
+import ru.sequentor.conav.ext.addStartDestination
 import ru.sequentor.conav.ext.back
 import ru.sequentor.conav.ext.backTo
 import ru.sequentor.conav.ext.navigate
@@ -24,9 +24,9 @@ class Navigator {
     private val router: Router = ChannelRouter()
 
     @Composable
-    fun init(startScreen: Screen) {
+    operator fun invoke(startDestination: Destination) {
         val navController: NavHostController = rememberNavController()
-        SetNavHost(navController = navController, startScreen = startScreen)
+        SetNavHost(navController = navController, startDestination = startDestination)
         SetRouter(navController = navController)
     }
 
@@ -35,14 +35,14 @@ class Navigator {
     @Composable
     private fun SetNavHost(
         navController: NavHostController,
-        startScreen: Screen,
+        startDestination: Destination,
     ) {
         NavHost(
             navController = navController,
-            startDestination = startScreen.route,
+            startDestination = startDestination.route,
             modifier = Modifier,
         ) {
-            addStartScreen(startScreen)
+            addStartDestination(startDestination)
         }
     }
 
@@ -50,11 +50,11 @@ class Navigator {
     private fun SetRouter(navController: NavHostController) {
         router.commandsFlow.AsLaunchedEffect(key = navController) { routerCommand: RouterCommand ->
             when (routerCommand) {
-                is RouterCommand.Navigate -> navController.navigate(routerCommand.screen)
+                is RouterCommand.Navigate -> navController.navigate(routerCommand.destination)
                 is RouterCommand.Back -> navController.back()
-                is RouterCommand.BackTo -> navController.backTo(routerCommand.screen)
-                is RouterCommand.Replace -> navController.replace(routerCommand.screen)
-                is RouterCommand.PopUpTo -> navController.popUpTo(routerCommand.screen)
+                is RouterCommand.BackTo -> navController.backTo(routerCommand.destination)
+                is RouterCommand.Replace -> navController.replace(routerCommand.destination)
+                is RouterCommand.PopUpTo -> navController.popUpTo(routerCommand.destination)
             }
         }
     }

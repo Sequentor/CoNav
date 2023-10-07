@@ -8,18 +8,18 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavArgument
 import androidx.navigation.NavType
 
-abstract class Screen : Parcelable {
+abstract class Destination : Parcelable {
     abstract val screenContent: @Composable () -> Unit
 }
 
-inline fun <reified T : Screen> SavedStateHandle.args(): T =
+inline fun <reified T : Destination> SavedStateHandle.args(): T =
     requireNotNull(get(T::class.java.canonicalName ?: error("canonicalName is null")))
 
-internal val Screen.route: String get() = this::class.java.canonicalName ?: error("canonicalName is null")
+internal val Destination.route: String get() = this::class.java.canonicalName ?: error("canonicalName is null")
 
-internal fun Screen.toBundle(): Bundle = bundleOf(route to this)
+internal fun Destination.toBundle(): Bundle = bundleOf(route to this)
 
-internal fun Screen.toNavArgument() = NavArgument.Builder()
+internal fun Destination.toNavArgument() = NavArgument.Builder()
     .setDefaultValue(this)
-    .setType(NavType.ParcelableType(Screen::class.java))
+    .setType(NavType.ParcelableType(Destination::class.java))
     .build()

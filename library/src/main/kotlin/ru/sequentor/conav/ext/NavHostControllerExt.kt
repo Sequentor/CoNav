@@ -5,30 +5,30 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.get
-import ru.sequentor.conav.destination.Screen
+import ru.sequentor.conav.destination.Destination
 import ru.sequentor.conav.destination.route
 import ru.sequentor.conav.destination.toBundle
 
-internal fun NavHostController.navigate(screen: Screen) {
-    val route: String = findOrCreateRoute(screen)
+internal fun NavHostController.navigate(destination: Destination) {
+    val route: String = findOrCreateRoute(destination)
     val node: NavDestination = this
         .graph
         .findNode(route) ?: error("Not found node for route: $route")
 
-    navigate(resId = node.id, args = screen.toBundle())
+    navigate(resId = node.id, args = destination.toBundle())
 }
 
 internal fun NavHostController.back() {
     popBackStack()
 }
 
-internal fun NavHostController.backTo(screen: Screen) = popBackStack(
-    route = screen.route,
+internal fun NavHostController.backTo(destination: Destination) = popBackStack(
+    route = destination.route,
     inclusive = false,
     saveState = false
 )
 
-internal fun NavHostController.replace(screen: Screen) = navigate(screen.route) {
+internal fun NavHostController.replace(destination: Destination) = navigate(destination.route) {
     val currentRoute = currentBackStackEntry
         ?.destination
         ?.route
@@ -37,7 +37,7 @@ internal fun NavHostController.replace(screen: Screen) = navigate(screen.route) 
     }
 }
 
-internal fun NavHostController.popUpTo(screen: Screen) = navigate(route = findOrCreateRoute(screen)) {
+internal fun NavHostController.popUpTo(destination: Destination) = navigate(route = findOrCreateRoute(destination)) {
     popUpTo(id = graph.findStartDestination().id) {
         saveState = true
     }
@@ -45,19 +45,19 @@ internal fun NavHostController.popUpTo(screen: Screen) = navigate(route = findOr
     restoreState = true
 }
 
-private fun NavHostController.findOrCreateRoute(screen: Screen): String {
-    val destinationRoute: String = screen.route
+private fun NavHostController.findOrCreateRoute(destination: Destination): String {
+    val destinationRoute: String = destination.route
     val node: NavDestination? = graph.findNode(destinationRoute)
-    if (node == null) addScreen(screen)
+    if (node == null) addDestination(destination)
     return destinationRoute
 }
 
-private fun NavHostController.addScreen(screen: Screen) {
+private fun NavHostController.addDestination(destination: Destination) {
     val navDestination = ComposeNavigator.Destination(
         navigator = navigatorProvider[ComposeNavigator::class],
-        content = { screen.screenContent.invoke() }
+        content = { destination.screenContent.invoke() }
     ).apply {
-        route = screen.route
+        route = destination.route
     }
     graph.addDestination(navDestination)
 }
