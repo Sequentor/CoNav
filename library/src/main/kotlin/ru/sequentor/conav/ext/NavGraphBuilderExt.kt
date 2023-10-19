@@ -3,18 +3,18 @@ package ru.sequentor.conav.ext
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.get
-import ru.sequentor.conav.destination.Destination
-import ru.sequentor.conav.destination.route
-import ru.sequentor.conav.destination.toNavArgument
+import ru.sequentor.conav.screen.Screen
+import ru.sequentor.conav.screen.route
+import ru.sequentor.conav.screen.toNavArgument
 
-internal fun NavGraphBuilder.addStartDestination(destination: Destination) {
+internal fun NavGraphBuilder.addDestination(screen: Screen) {
     addDestination(
         ComposeNavigator.Destination(
             navigator = provider[ComposeNavigator::class],
-            content = { destination.screenContent.invoke() }
+            content = { screen.screenContent.invoke() }
         ).apply {
-            route = destination.route
-            addArgument(destination.route, destination.toNavArgument())
+            route = screen.route
+            addArgument(screen.route, screen.toNavArgument())
         }
     )
 }

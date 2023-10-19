@@ -7,9 +7,9 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ru.sequentor.conav.Navigator
-import ru.sequentor.sample.feature.feature_one.first.navigation.FeatureOneFirstDestination
+import ru.sequentor.sample.feature.feature_one.first.navigation.FeatureOneFirstScreen
 import ru.sequentor.sample.feature.start.state.StartViewState
-import ru.sequentor.sample.ui.component.ComposeNavigationNavigationBarCornered
+import ru.sequentor.sample.ui.component.ComposeNavigationBarCornered
 import ru.sequentor.sample.ui.component.ComposeNavigationScaffold
 import ru.sequentor.sample.ui.theme.ComposeNavigationTheme
 
@@ -23,13 +23,13 @@ internal fun StartScreen(
         ComposeNavigationScaffold(
             modifier = Modifier.navigationBarsPadding(),
             bottomBar = {
-                ComposeNavigationNavigationBarCornered(
+                ComposeNavigationBarCornered(
                     navigationItems = startViewState.navigationItems,
                     onNavigationBarClick = startViewModel::onNavigationBarClick
                 )
             },
             content = {
-                navigator(startDestination = FeatureOneFirstDestination())
+                navigator(startScreen = FeatureOneFirstScreen())
             }
         )
     }

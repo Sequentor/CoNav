@@ -3,7 +3,7 @@ package ru.sequentor.conav.router
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
-import ru.sequentor.conav.destination.Destination
+import ru.sequentor.conav.screen.Screen
 
 internal class ChannelRouter(
     commandsBufferSize: Int = DEFAULT_COMMANDS_BUFFER_SIZE,
@@ -13,24 +13,24 @@ internal class ChannelRouter(
     override val commandsFlow: Flow<RouterCommand>
         get() = commandsChannel.receiveAsFlow()
 
-    override fun navigate(destination: Destination) {
-        commandsChannel.trySend(RouterCommand.Navigate(destination))
+    override fun navigate(screen: Screen) {
+        commandsChannel.trySend(Navigate(screen))
     }
 
     override fun back() {
-        commandsChannel.trySend(RouterCommand.Back)
+        commandsChannel.trySend(Back)
     }
 
-    override fun backTo(destination: Destination) {
-        commandsChannel.trySend(RouterCommand.BackTo(destination))
+    override fun backTo(screen: Screen) {
+        commandsChannel.trySend(BackTo(screen))
     }
 
-    override fun replace(destination: Destination) {
-        commandsChannel.trySend(RouterCommand.Replace(destination))
+    override fun replace(screen: Screen) {
+        commandsChannel.trySend(Replace(screen))
     }
 
-    override fun popUpTo(destination: Destination) {
-        commandsChannel.trySend(RouterCommand.PopUpTo(destination))
+    override fun popUpTo(screen: Screen) {
+        commandsChannel.trySend(PopUpTo(screen))
     }
 
     companion object {

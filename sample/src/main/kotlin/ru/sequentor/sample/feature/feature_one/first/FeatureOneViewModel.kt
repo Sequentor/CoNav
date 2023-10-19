@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import ru.sequentor.conav.router.Router
 import ru.sequentor.sample.feature.feature_one.first.state.FeatureOneViewState
-import ru.sequentor.sample.feature.feature_one.second.navigation.FeatureOneSecondDestination
+import ru.sequentor.sample.feature.feature_one.second.navigation.FeatureOneSecondScreen
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,6 +23,6 @@ internal class FeatureOneViewModel @Inject constructor(
     }
 
     fun onNavigateSecondScreen() {
-        router.navigate(FeatureOneSecondDestination(featureOneViewState.value.count, Result.success("Success")))
+        router.navigate(FeatureOneSecondScreen(featureOneViewState.value.count, Result.success("Success")))
     }
 }

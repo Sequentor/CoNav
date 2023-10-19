@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import ru.sequentor.sample.ui.theme.Green
 
 @Composable
-fun ComposeNavigationNavigationBarCornered(
+fun ComposeNavigationBarCornered(
     navigationItems: List<NavigationItem>,
     onNavigationBarClick: (route: String) -> Unit,
 ) {
