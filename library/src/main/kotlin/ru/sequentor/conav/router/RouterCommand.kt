@@ -1,12 +1,17 @@
 package ru.sequentor.conav.router
 
-import ru.sequentor.conav.screen.Screen
+import ru.sequentor.conav.screen.Destination
 
 interface RouterCommand
 
-data class Navigate(val screen: Screen) : RouterCommand
-data object Back : RouterCommand
-data class BackTo(val screen: Screen) : RouterCommand
-data class Replace(val screen: Screen) : RouterCommand
-data class PopUpTo(val screen: Screen) : RouterCommand
+internal data object Back : RouterCommand
 
+internal data class Root(val destination: Destination) : RouterCommand
+
+internal data class Forward(val destination: Destination) : RouterCommand
+
+internal data class Replace(val destination: Destination) : RouterCommand
+
+internal data class BackTo(val destinationKey: String?) : RouterCommand
+
+internal data class Bottom(val destination: Destination) : RouterCommand

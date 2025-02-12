@@ -1,14 +1,30 @@
 package ru.sequentor.conav.router
 
-import kotlinx.coroutines.flow.Flow
-import ru.sequentor.conav.screen.Screen
+import ru.sequentor.conav.screen.Destination
 
-interface Router {
-    val commandsFlow: Flow<RouterCommand>
+open class Router : BaseRouter() {
 
-    fun navigate(screen: Screen)
-    fun back()
-    fun backTo(screen: Screen)
-    fun replace(screen: Screen)
-    fun popUpTo(screen: Screen)
+    fun back() {
+        executeRouterCommand(Back)
+    }
+
+    fun navigateTo(destination: Destination) {
+        executeRouterCommand(Forward(destination))
+    }
+
+    fun backTo(destinationKey: String?) {
+        executeRouterCommand(BackTo(destinationKey))
+    }
+
+    fun replace(destination: Destination) {
+        executeRouterCommand(Replace(destination))
+    }
+
+    fun newRootScreen(destination: Destination) {
+        executeRouterCommand(Root(destination))
+    }
+
+    fun bottom(destination: Destination) {
+        executeRouterCommand(Bottom(destination))
+    }
 }

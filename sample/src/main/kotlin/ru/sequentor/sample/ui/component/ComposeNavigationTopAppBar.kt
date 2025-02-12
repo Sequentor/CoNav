@@ -2,7 +2,6 @@
 
 package ru.sequentor.sample.ui.component
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.displayCutout
@@ -11,19 +10,18 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 
 @Composable
 fun ComposeNavigationTopAppBar(
     modifier: Modifier = Modifier,
-    @StringRes titleRes: Int,
+    title: String,
     navigationIcon: NavigationIcon = NavigationIcon.None,
     actions: @Composable RowScope.() -> Unit = {},
     scrollBehavior: TopAppBarScrollBehavior? = null,
@@ -32,10 +30,7 @@ fun ComposeNavigationTopAppBar(
     TopAppBar(
         modifier = modifier,
         windowInsets = WindowInsets.Companion.displayCutout,
-        colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.White),
-        title = {
-            Text(text = stringResource(id = titleRes))
-        },
+        title = { Text(text = title) },
         navigationIcon = {
             if (navigationIcon != NavigationIcon.None) {
                 IconButton(onClick = onNavigationClick) {
@@ -50,6 +45,7 @@ fun ComposeNavigationTopAppBar(
                 }
             }
         },
+        colors = TopAppBarDefaults.topAppBarColors().copy(containerColor = MaterialTheme.colorScheme.background),
         actions = actions,
         scrollBehavior = scrollBehavior,
     )

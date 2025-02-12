@@ -14,9 +14,9 @@ internal object NavigationModule {
 
     @Provides
     @Singleton
-    fun provideNavigator(): Navigator = Navigator()
+    fun provideRouter(): Router = Router()
 
     @Provides
     @Singleton
-    fun provideRouter(navigator: Navigator): Router = navigator.getRouter()
+    fun provideNavigator(router: Router): Navigator = Navigator(router)
 }

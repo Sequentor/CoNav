@@ -2,13 +2,14 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
+    id("org.jetbrains.kotlin.plugin.compose")
 }
 
 android {
     namespace = "ru.sequentor.conav"
 
-    compileSdk = 34
-    defaultConfig.targetSdk = 34
+    compileSdk = 35
+    defaultConfig.targetSdk = 35
 
     defaultConfig {
         minSdk = 26
@@ -16,10 +17,6 @@ android {
 
     buildFeatures {
         compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.3"
     }
 
     compileOptions {
@@ -33,7 +30,7 @@ android {
 }
 
 dependencies {
-    implementation(platform("androidx.compose:compose-bom:2023.01.00"))
-    implementation("androidx.navigation:navigation-compose:2.7.4")
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
+    implementation(platform("androidx.compose:compose-bom:2025.01.01"))
+    implementation("androidx.navigation:navigation-compose:2.9.0-alpha05")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.7")
 }

@@ -1,9 +1,3 @@
 <resources>
     <string name="app_name">Compose Navigation Sample</string>
-
-    <string name="feature_one_first">Feature one first</string>
-    <string name="feature_one_second">Feature one second</string>
-    <string name="feature_two">Feature two</string>
-    <string name="feature_three">Feature three</string>
-    <string name="feature_four">Feature four</string>
 </resources>
