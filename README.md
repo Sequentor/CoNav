@@ -26,3 +26,5 @@
 
 - **Inspired by Cicerone**  
     This library draws inspiration from the popular Cicerone navigation framework, adopting its simplicity and powerful approach to navigation. Like Cicerone, it emphasizes clean architecture, ease of use, and a declarative style, but tailored specifically for Jetpack Compose.
+
+Special thanks to [V-Razinov](https://github.com/V-Razinov)
