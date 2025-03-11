@@ -93,7 +93,6 @@ class Navigator(val router: BaseRouter) {
 
     @Composable
     fun Router(navController: NavHostController) {
-        router.setNavHostController(navController)
         router.commandsFlow.AsLaunchedEffect(key = navController) { routerCommand: RouterCommand ->
             when (routerCommand) {
                 is Back -> navController.back()
