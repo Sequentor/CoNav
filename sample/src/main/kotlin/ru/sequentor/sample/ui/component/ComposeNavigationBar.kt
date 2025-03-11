@@ -18,13 +18,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import ru.sequentor.conav.screen.Destination
+import ru.sequentor.sample.feature.start.NavDestination
 import ru.sequentor.sample.ui.theme.Green
 
 @Composable
-fun ComposeNavigationBarCornered(
+internal fun ComposeNavigationBarCornered(
     navigationItems: List<NavigationItem>,
-    onNavigationBarClick: (destination: Destination) -> Unit,
+    onNavigationBarClick: (navDestination: NavDestination) -> Unit,
 ) {
     var selectedIndex by remember { mutableIntStateOf(0) }
 
@@ -47,7 +47,7 @@ fun ComposeNavigationBarCornered(
                     selected = selectedIndex == index,
                     onClick = {
                         selectedIndex = index
-                        onNavigationBarClick.invoke(navigationItem.destination)
+                        onNavigationBarClick.invoke(navigationItem.navDestination)
                     },
                     colors = NavigationBarItemDefaults.colors(
                         indicatorColor = Color.White,
@@ -59,8 +59,8 @@ fun ComposeNavigationBarCornered(
     )
 }
 
-data class NavigationItem(
-    val destination: Destination,
+internal data class NavigationItem(
+    val navDestination: NavDestination,
     val imageVector: ImageVector,
     val startDestination: Boolean = false,
 )

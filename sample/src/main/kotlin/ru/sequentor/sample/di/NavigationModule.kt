@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ru.sequentor.conav.Navigator
+import ru.sequentor.conav.navigator.Navigator
 import ru.sequentor.conav.router.Router
 import javax.inject.Singleton
 

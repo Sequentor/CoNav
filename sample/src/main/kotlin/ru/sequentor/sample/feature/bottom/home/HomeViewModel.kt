@@ -29,7 +29,7 @@ internal class HomeViewModel @Inject constructor(
     }
 
     fun onNavigateScreenA() {
-        router.navigateTo(DestinationA)
+        router.navigateTo(DestinationA())
     }
 
     fun onNavigateScreenB() {

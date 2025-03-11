@@ -28,11 +28,11 @@ internal class ScreenCViewModel @Inject constructor(
     }
 
     fun makeDScreenRoot() {
-        router.newRootScreen(DestinationD)
+        router.newRoot(DestinationD())
     }
 
     fun replaceCScreenToDScreen() {
-        router.replace(DestinationD)
+        router.replace(DestinationD())
     }
 
     fun onBackClick() {

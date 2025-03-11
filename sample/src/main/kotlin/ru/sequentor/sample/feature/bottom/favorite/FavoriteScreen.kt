@@ -18,14 +18,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import kotlinx.parcelize.IgnoredOnParcel
-import kotlinx.parcelize.Parcelize
-import ru.sequentor.conav.screen.Destination
+import ru.sequentor.conav.destination.Destination
 
-@Parcelize
-data object FavoriteDestination : Destination {
-    @IgnoredOnParcel
-    override val content: @Composable () -> Unit = { FavoriteScreen() }
+class FavoriteDestination : Destination {
+    @Composable
+    override fun Content() {
+        FavoriteScreen()
+    }
 }
 
 @Composable

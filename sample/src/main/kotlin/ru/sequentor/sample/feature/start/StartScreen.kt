@@ -6,7 +6,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import ru.sequentor.conav.Navigator
+import androidx.navigation.compose.rememberNavController
+import ru.sequentor.conav.navigator.Navigator
 import ru.sequentor.sample.ui.component.ComposeNavigationBarCornered
 import ru.sequentor.sample.ui.component.ComposeNavigationScaffold
 
@@ -20,8 +21,8 @@ internal fun StartScreen(
     ComposeNavigationScaffold(
         modifier = Modifier.navigationBarsPadding(),
         content = {
-            val startDestination = startViewState.navigationItems.first { it.startDestination }.destination
-            navigator(startDestination = startDestination)
+            val startDestination = startViewState.navigationItems.first { it.startDestination }.navDestination
+            navigator(navController = rememberNavController(), startDestination = startDestination.toDestination())
         },
         bottomBar = {
             ComposeNavigationBarCornered(

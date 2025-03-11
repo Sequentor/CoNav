@@ -28,7 +28,7 @@ internal class ScreenDViewModel @Inject constructor(
     }
 
     fun onNavigateScreenE() {
-        router.navigateTo(DestinationE)
+        router.navigateTo(DestinationE())
     }
 
     fun onBackClick() {

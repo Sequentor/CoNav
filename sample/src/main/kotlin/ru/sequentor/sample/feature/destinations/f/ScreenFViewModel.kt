@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import ru.sequentor.conav.router.Router
-import ru.sequentor.conav.screen.route
 import ru.sequentor.sample.feature.destinations.b.DestinationB
 import javax.inject.Inject
 
@@ -29,7 +28,7 @@ internal class ScreenFViewModel @Inject constructor(
     }
 
     fun backToScreenB() {
-        router.backTo(route<DestinationB>())
+        router.backTo(DestinationB.KEY)
     }
 
     fun onBackClick() {

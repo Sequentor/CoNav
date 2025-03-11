@@ -1,10 +1,9 @@
-package ru.sequentor.conav
+package ru.sequentor.conav.navigator
 
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.SizeTransform
-import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
@@ -13,49 +12,48 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.flow.Flow
+import ru.sequentor.conav.destination.Destination
 import ru.sequentor.conav.ext.addDestination
 import ru.sequentor.conav.ext.back
 import ru.sequentor.conav.ext.backTo
-import ru.sequentor.conav.ext.bottom
 import ru.sequentor.conav.ext.forward
+import ru.sequentor.conav.ext.popUpTo
 import ru.sequentor.conav.ext.replace
 import ru.sequentor.conav.ext.root
+import ru.sequentor.conav.ext.rootGraph
 import ru.sequentor.conav.router.Back
 import ru.sequentor.conav.router.BackTo
-import ru.sequentor.conav.router.Bottom
+import ru.sequentor.conav.router.BaseRouter
 import ru.sequentor.conav.router.Forward
+import ru.sequentor.conav.router.PopUpTo
 import ru.sequentor.conav.router.Replace
 import ru.sequentor.conav.router.Root
-import ru.sequentor.conav.router.Router
+import ru.sequentor.conav.router.RootGraph
 import ru.sequentor.conav.router.RouterCommand
-import ru.sequentor.conav.screen.Destination
-import ru.sequentor.conav.screen.route
 
-class Navigator(val router: Router) {
+class Navigator(val router: BaseRouter) {
 
     @Composable
     operator fun invoke(
-        navController: NavHostController = rememberNavController(),
-        startDestination: Destination,
         modifier: Modifier = Modifier,
+        navController: NavHostController,
+        startDestination: Destination,
         contentAlignment: Alignment = Alignment.TopStart,
         enterTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition) = {
-            fadeIn(animationSpec = tween(300))
+            fadeIn()
         },
         exitTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition) = {
-            fadeOut(animationSpec = tween(300))
+            fadeOut()
         },
         popEnterTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition) = enterTransition,
         popExitTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition) = exitTransition,
         sizeTransform: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> SizeTransform?)? = null,
     ) {
         NavHost(
+            modifier = modifier,
             navController = navController,
             startDestination = startDestination,
-            modifier = modifier,
             contentAlignment = contentAlignment,
             enterTransition = enterTransition,
             exitTransition = exitTransition,
@@ -68,9 +66,9 @@ class Navigator(val router: Router) {
 
     @Composable
     private fun NavHost(
+        modifier: Modifier = Modifier,
         navController: NavHostController,
         startDestination: Destination,
-        modifier: Modifier = Modifier,
         contentAlignment: Alignment,
         enterTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition),
         exitTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition),
@@ -78,31 +76,33 @@ class Navigator(val router: Router) {
         popExitTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition),
         sizeTransform: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> SizeTransform?)?,
     ) {
-        NavHost(
-            navController = navController,
-            startDestination = startDestination.route,
+        androidx.navigation.compose.NavHost(
             modifier = modifier,
+            navController = navController,
+            startDestination = startDestination.key,
             contentAlignment = contentAlignment,
             enterTransition = enterTransition,
             exitTransition = exitTransition,
             popEnterTransition = popEnterTransition,
             popExitTransition = popExitTransition,
-            sizeTransform = sizeTransform,
+            sizeTransform = sizeTransform
         ) {
-            addDestination(startDestination)
+            addDestination(destination = startDestination)
         }
     }
 
     @Composable
-    private fun Router(navController: NavHostController) {
+    fun Router(navController: NavHostController) {
+        router.setNavHostController(navController)
         router.commandsFlow.AsLaunchedEffect(key = navController) { routerCommand: RouterCommand ->
             when (routerCommand) {
                 is Back -> navController.back()
-                is Root -> navController.root(routerCommand.destination)
+                is BackTo -> navController.backTo(routerCommand.key)
                 is Forward -> navController.forward(routerCommand.destination)
                 is Replace -> navController.replace(routerCommand.destination)
-                is BackTo -> navController.backTo(routerCommand.destinationKey)
-                is Bottom -> navController.bottom(routerCommand.destination)
+                is PopUpTo -> navController.popUpTo(routerCommand.destination)
+                is Root -> navController.root(routerCommand.destination)
+                is RootGraph -> navController.rootGraph(routerCommand.destination)
             }
         }
     }

@@ -1,30 +1,34 @@
 package ru.sequentor.conav.router
 
-import ru.sequentor.conav.screen.Destination
+import ru.sequentor.conav.destination.Destination
 
-open class Router : BaseRouter() {
+class Router : BaseRouter() {
 
     fun back() {
         executeRouterCommand(Back)
     }
 
-    fun navigateTo(destination: Destination) {
-        executeRouterCommand(Forward(destination))
-    }
-
-    fun backTo(destinationKey: String?) {
-        executeRouterCommand(BackTo(destinationKey))
+    fun backTo(key: String) {
+        executeRouterCommand(BackTo(key))
     }
 
     fun replace(destination: Destination) {
         executeRouterCommand(Replace(destination))
     }
 
-    fun newRootScreen(destination: Destination) {
+    fun navigateTo(destination: Destination) {
+        executeRouterCommand(Forward(destination))
+    }
+
+    fun popUpTo(destination: Destination) {
+        executeRouterCommand(PopUpTo(destination))
+    }
+
+    fun newRoot(destination: Destination) {
         executeRouterCommand(Root(destination))
     }
 
-    fun bottom(destination: Destination) {
-        executeRouterCommand(Bottom(destination))
+    fun newRootGraph(destination: Destination) {
+        executeRouterCommand(RootGraph(destination))
     }
 }

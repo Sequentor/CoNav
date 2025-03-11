@@ -28,11 +28,11 @@ internal class ScreenEViewModel @Inject constructor(
     }
 
     fun onNavigateScreenF() {
-        router.navigateTo(DestinationF)
+        router.navigateTo(DestinationF())
     }
 
     fun replaceEScreenToFScreen() {
-        router.replace(DestinationF)
+        router.replace(DestinationF())
     }
 
     fun onBackClick() {

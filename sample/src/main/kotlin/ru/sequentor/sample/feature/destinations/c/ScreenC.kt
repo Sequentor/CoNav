@@ -21,16 +21,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import kotlinx.parcelize.IgnoredOnParcel
-import kotlinx.parcelize.Parcelize
-import ru.sequentor.conav.screen.Destination
+import ru.sequentor.conav.destination.Destination
 import ru.sequentor.sample.ui.component.ComposeNavigationTopAppBar
 import ru.sequentor.sample.ui.component.NavigationIcon
 
-@Parcelize
-data object DestinationC : Destination {
-    @IgnoredOnParcel
-    override val content: @Composable () -> Unit = { ScreenC() }
+class DestinationC : Destination {
+    @Composable
+    override fun Content() {
+        ScreenC()
+    }
 }
 
 @Composable

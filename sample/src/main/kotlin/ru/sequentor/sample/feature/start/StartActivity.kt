@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.Surface
 import dagger.hilt.android.AndroidEntryPoint
-import ru.sequentor.conav.Navigator
+import ru.sequentor.conav.navigator.Navigator
 import ru.sequentor.sample.ui.theme.ComposeNavigationTheme
 import javax.inject.Inject
 
